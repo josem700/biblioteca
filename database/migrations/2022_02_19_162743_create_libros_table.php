@@ -14,8 +14,15 @@ class CreateLibrosTable extends Migration
     public function up()
     {
         Schema::create('libros', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id")->unique();
+            $table->string("titulo");
+            $table->string("descripcion");
+            $table->datetime("prestado")->nullable();
+            $table->datetime("devuelto")->nullable();
             $table->timestamps();
+            $table->integer("user_id")->unsigned()->nullable();
+
+            $table->foreign('user_id')->references('id')->on('usuarios');
         });
     }
 
@@ -29,3 +36,4 @@ class CreateLibrosTable extends Migration
         Schema::dropIfExists('libros');
     }
 }
+                               

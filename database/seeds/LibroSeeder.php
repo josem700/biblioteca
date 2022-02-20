@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Libro;
 class LibroSeeder extends Seeder
 {
     /**
@@ -11,6 +11,6 @@ class LibroSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Libro::class)->times(5)->create();
     }
 }
