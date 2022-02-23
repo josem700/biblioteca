@@ -14,15 +14,16 @@ class CreateLibrosTable extends Migration
     public function up()
     {
         Schema::create('libros', function (Blueprint $table) {
-            $table->increments("id")->unique();
+            $table->increments("id")->unique()->primary();
             $table->string("titulo");
             $table->string("descripcion");
             $table->datetime("prestado")->nullable();
             $table->datetime("devuelto")->nullable();
             $table->timestamps();
-            $table->integer("user_id")->unsigned()->nullable();
+            
+            $table->foreign('id')->references('libro_id')->on('libros_prestados');
 
-            $table->foreign('user_id')->references('id')->on('usuarios');
+        
         });
     }
 
