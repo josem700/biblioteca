@@ -18,7 +18,6 @@ class CreateLibrosPrestadosTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('libro_id')->unsigned()->nullable();
             $table->timestamps();
-
             $table->foreign('libro_id')->references('id')->on('libros');
             $table->foreign('user_id')->references('id')->on('usuarios');
         });
