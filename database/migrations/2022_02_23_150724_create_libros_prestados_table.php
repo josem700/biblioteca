@@ -13,13 +13,15 @@ class CreateLibrosPrestadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('libros_prestados', function (Blueprint $table) {
+        Schema::create('libro_usuario', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('libro_id')->unsigned()->nullable();
+            $table->integer('usuario_id')->unsigned();
+            $table->integer('libro_id')->unsigned();
             $table->timestamps();
-            $table->foreign('libro_id')->references('id')->on('libros');
-            $table->foreign('user_id')->references('id')->on('usuarios');
+
+
+            $table->foreign('libro_id')->references('id')->on('libros')->onDelete('cascade');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateLibrosPrestadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('libros_prestados');
+        Schema::dropIfExists('libro_usuario');
     }
 }

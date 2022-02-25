@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Libro;
 use Illuminate\Http\Request;
+use Illuminate\validation\Rule;
 
 class LibroController extends Controller
 {
@@ -14,7 +15,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        //
+        return $this->showAll(Libro::all());
     }
 
     /**
@@ -25,7 +26,17 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'titulo' => 'required|max:255',
+            'descripcion' => 'required|email|unique:users,email',
+        ];
+        $messages = [
+            'required' => 'El campo :attribute es obligatorio.'
+        ];
+        $validatedData = $request->validate($rules, $messages);
+        $validatedData['password'] = bcrypt($validatedData['password']);
+        $libro = Libro::create($validatedData);
+        return $this->showOne($libro,201);
     }
 
     /**
@@ -36,7 +47,7 @@ class LibroController extends Controller
      */
     public function show(Libro $libro)
     {
-        //
+        return $this->showOne($libro);
     }
 
     /**
@@ -48,7 +59,19 @@ class LibroController extends Controller
      */
     public function update(Request $request, Libro $libro)
     {
-        //
+        $rules = [
+            'titulo' => 'min:5|max:255',
+            'descripcion' => 'min:5|max:255'
+        ];
+        $validatedData = $request->validate($rules);
+
+        $libro->fill($validatedData);
+
+        if(!$libro->isDirty()){
+            return response()->json(['error'=>['code' => 422, 'message' => 'please specify at least one different value' ]], 422);
+        }
+        $libro->save();
+        return $this->showOne($libro);
     }
 
     /**
@@ -59,6 +82,7 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
-        //
+        $libro->delete();
+        return $this->showOne($libro);
     }
 }

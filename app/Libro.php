@@ -10,7 +10,7 @@ class Libro extends Model
 
 
     public function usuario(){
-        return $this->belongsTo(Usuario::class, 'id');
+        return $this->belongsToMany(Usuario::class);
     }
 
     

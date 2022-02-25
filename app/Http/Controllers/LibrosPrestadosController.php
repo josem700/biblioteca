@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\LibrosPrestados;
 use Illuminate\Http\Request;
 
 class LibrosPrestadosController extends Controller
@@ -41,10 +40,10 @@ class LibrosPrestadosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\LibrosPrestados  $librosPrestados
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(LibrosPrestados $librosPrestados)
+    public function show($id)
     {
         //
     }
@@ -52,10 +51,10 @@ class LibrosPrestadosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\LibrosPrestados  $librosPrestados
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(LibrosPrestados $librosPrestados)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +63,10 @@ class LibrosPrestadosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LibrosPrestados  $librosPrestados
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LibrosPrestados $librosPrestados)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +74,10 @@ class LibrosPrestadosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LibrosPrestados  $librosPrestados
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LibrosPrestados $librosPrestados)
+    public function destroy($id)
     {
         //
     }

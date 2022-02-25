@@ -15,11 +15,9 @@ class CreateLibrosTable extends Migration
     {
         Schema::create('libros', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id')->unsigned();
+            $table->increments('id');
             $table->string("titulo");
             $table->string("descripcion");
-            $table->datetime("prestado")->nullable();
-            $table->datetime("devuelto")->nullable();
             $table->timestamps();
         
           
