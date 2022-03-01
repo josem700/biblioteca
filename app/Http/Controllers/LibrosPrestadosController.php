@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Libro;
+use App\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LibrosPrestadosController extends Controller
 {
@@ -11,9 +14,10 @@ class LibrosPrestadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Libro $libro)
     {
-        //
+        $users = $libro->usuario;
+        return $this->showAll($users);
     }
 
     /**
@@ -34,7 +38,19 @@ class LibrosPrestadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'usuario_id' => 'required',
+            'libro_id' => 'required',
+
+        ];
+        $messages = [
+            'usuario_id' => 'El campo :attribute es obligatorio.',
+            'libro_id' => 'El campo :attribute es obligatorio',
+        ];
+        $validatedData = $request->validate($rules, $messages);
+        // $validatedData['contraseña'] = bcrypt($validatedData['contraseña']);
+        $libro = Libro::create($validatedData);
+        return $this->showOne($libro,201);
     }
 
     /**
@@ -43,9 +59,9 @@ class LibrosPrestadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        return DB::table('libro_usuario')->where('usuario_id', $user_id)->get();
     }
 
     /**
@@ -79,6 +95,8 @@ class LibrosPrestadosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $valor_borrado = DB::table('libro_usuario')->where('usuario_id', $id)->get();
+        DB::table('libro_usuario')->where('usuario_id',$id)->delete();
+        return $valor_borrado;
     }
 }
