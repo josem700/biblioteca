@@ -14,12 +14,16 @@ class LibrosPrestadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Libro $libro)
+    public function index()   
     {
-        $users = $libro->usuario;
-        return $this->showAll($users);
-    }
 
+       $usuario = Usuario::All();
+
+       foreach($usuario as $us){
+           return $us->libros;
+       }
+    }
+ 
     /**
      * Show the form for creating a new resource.
      *

@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Libro extends Model
 {
-    protected $fillable = [];
-
+    protected $fillable = [
+        'titulo',
+        'descripcion'
+    ];
 
     public function usuario(){
         return $this->belongsToMany(Usuario::class);
     }
 
-    
 }
