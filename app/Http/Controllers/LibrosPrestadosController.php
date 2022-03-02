@@ -14,14 +14,10 @@ class LibrosPrestadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()   
-    {
+    public function index(Usuario $usuario){   
 
-       $usuario = Usuario::All();
-
-       foreach($usuario as $us){
-           return $us->libros;
-       }
+       $users = $usuario->with('libros')->get();
+       return $this->showAll($users);
     }
  
     /**
@@ -65,7 +61,9 @@ class LibrosPrestadosController extends Controller
      */
     public function show($user_id)
     {
-        return DB::table('libro_usuario')->where('usuario_id', $user_id)->get();
+       $usuario = Usuario::find($user_id)->libros;
+       //$users = $usuario->with('libros')->get();
+        return $this->showAll($usuario);
     }
 
     /**
@@ -88,7 +86,7 @@ class LibrosPrestadosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -98,7 +96,7 @@ class LibrosPrestadosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {  
         $valor_borrado = DB::table('libro_usuario')->where('usuario_id', $id)->get();
         DB::table('libro_usuario')->where('usuario_id',$id)->delete();
         return $valor_borrado;
