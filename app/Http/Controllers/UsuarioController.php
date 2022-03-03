@@ -33,7 +33,7 @@ class UsuarioController extends Controller
         ];
         $messages = [
             'required' => 'El campo :attribute es obligatorio.',
-            'email.email' => 'El campo correo no tiene el formato adecuado.',
+            'email' => 'El campo correo no tiene el formato adecuado.',
             'password' => 'La contraseña es campo obligatorio',
         ];
         $validatedData = $request->validate($rules, $messages);

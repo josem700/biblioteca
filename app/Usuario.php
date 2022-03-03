@@ -39,7 +39,7 @@ class Usuario extends Authenticatable implements JWTSubject
     ];
 
     public function libros(){
-        return $this->belongsToMany(Libro::class);
+        return $this->belongsToMany(Libro::class)->withTimestamps();
     }
 
     /* Get the identifier that will be stored in the subject claim of the JWT.

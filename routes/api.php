@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('usuarios', 'UsuarioController');
 Route::apiResource('libros','LibroController');
-Route::apiResource('usuario_libros', 'LibrosPrestadosController');
+Route::apiResource('prestados', 'LibrosPrestadosController');
 
 
 Route::group([
