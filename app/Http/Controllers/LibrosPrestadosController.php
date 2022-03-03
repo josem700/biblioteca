@@ -26,20 +26,20 @@ class LibrosPrestadosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Usuario $usuario)
     {
         $rules = [
-            'usuario_id' => 'required',
-            'libro_id' => 'required',
-
+            'libro_id' => 'required|integer'
         ];
         $messages = [
-            'usuario_id' => 'El campo :attribute es obligatorio.',
+            
             'libro_id' => 'El campo :attribute es obligatorio',
         ];
+
         $validatedData = $request->validate($rules, $messages);
-        $libro = Libro::create($validatedData);
-        return $this->showOne($libro);
+        $usuario->libros()->syncWithoutDetaching($validatedData);
+
+        return $this->showOne($usuario);
     }
 
     /**
@@ -85,10 +85,9 @@ class LibrosPrestadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Usuario $usuario, Libro $libro)
     {  
-        $valor_borrado = DB::table('libro_usuario')->where('usuario_id', $id)->get();
-        DB::table('libro_usuario')->where('usuario_id',$id)->delete();
-        return $valor_borrado;
+        $usuario->libros()->detach($libro->libro_id);
+        return $this->showOne($usuario);
     }
 }

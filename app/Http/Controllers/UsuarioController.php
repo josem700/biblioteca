@@ -27,8 +27,8 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email',
+            'nombre' => 'required|max:255',
+            'email' => 'required|email|unique:usuarios,email',
             'password' => 'required|min:6|confirmed',
         ];
         $messages = [
